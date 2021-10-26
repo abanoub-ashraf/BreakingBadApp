@@ -1,0 +1,21 @@
+include: package:lint/analysis_options.yaml
+
+analyzer:
+  errors:
+    missing_return: error
+    must_be_immutable: error
+    must_call_super: error
+    invalid_use_of_protected_member: error
+    parameter_assignments: error
+    sort_unnamed_constructors_first: ignore
+    sort_pub_dependencies: ignore
+    always_put_required_named_parameters_first: true
+    prefer_single_quotes: true
+    eol_at_end_of_file: ignore
+    avoid_redundant_argument_values: ignore
+    require_trailing_commas: ignore
+    avoid_classes_with_only_static_members: ignore
+    depend_on_referenced_packages: ignore
+    directives_ordering: ignore
+    slash_for_doc_comments: ignore
+    sort_child_properties_last: ignore
