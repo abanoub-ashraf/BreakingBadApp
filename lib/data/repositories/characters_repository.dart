@@ -1,4 +1,5 @@
 import 'package:breaking_bad_app/data/models/character_model.dart';
+import 'package:breaking_bad_app/data/models/character_quotes_model.dart';
 import 'package:breaking_bad_app/data/web_services/characters_web_services.dart';
 
 ///
@@ -16,9 +17,20 @@ class CharactersRepository {
     ///
     Future<List<CharacterModel>> getAllCharacters() async {
         final characters = await charactersWebServices.getAllCharacters();
+
         return characters
             .map(
                 (character) => CharacterModel.fromJson(character as Map<String, dynamic>)
+            )
+            .toList();
+    }
+
+    Future<List<CharacterQuotesModel>> getCharacterQuotes(String characterName) async {
+        final quotes = await charactersWebServices.getCharacterQuotes(characterName);
+
+        return quotes
+            .map(
+                (quote) => CharacterQuotesModel.fromJson(quote as Map<String, dynamic>)
             )
             .toList();
     }

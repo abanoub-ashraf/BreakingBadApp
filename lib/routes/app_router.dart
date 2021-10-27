@@ -45,7 +45,15 @@ class AppRouter {
                 final character = settings.arguments! as CharacterModel;
                 
                 return MaterialPageRoute(
-                    builder: (_) => CharacterDetailsScreen(character: character)
+                    builder: (_) => BlocProvider(
+                        ///
+                        /// this is a new cubit i am passing to this screen
+                        ///
+                        create:(BuildContext context) => CharactersCubit(charactersRepository),
+                        child: CharacterDetailsScreen(
+                            character: character,
+                        ),
+                    )
                 );
         }
     }

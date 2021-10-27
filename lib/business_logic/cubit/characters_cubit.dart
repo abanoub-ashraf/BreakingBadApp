@@ -1,4 +1,5 @@
 import 'package:bloc/bloc.dart';
+import 'package:breaking_bad_app/data/models/character_quotes_model.dart';
 import 'package:breaking_bad_app/data/repositories/characters_repository.dart';
 import 'package:meta/meta.dart';
 import 'package:breaking_bad_app/data/models/character_model.dart';
@@ -22,7 +23,8 @@ class CharactersCubit extends Cubit<CharactersState> {
     /// - this function will send the data to the ui
     ///
     List<CharacterModel> getAllCharacters() {
-        charactersRepository.getAllCharacters()
+        charactersRepository
+            .getAllCharacters()
             .then((characters) {
                 emit(CharactersLoaded(characters));
 
@@ -30,5 +32,13 @@ class CharactersCubit extends Cubit<CharactersState> {
             });
 
         return characters;
+    }
+
+    void getCharacterQuotes(String characterName) {
+        charactersRepository
+        .getCharacterQuotes(characterName)
+            .then((quotes) {
+                emit(CharacterQuotesLoaded(quotes));
+            });
     }
 }

@@ -32,11 +32,26 @@ class CharactersWebServices {
     Future<List<dynamic>> getAllCharacters() async {
         try {
             final Response response = await dio.get(AppStrings.getAllCharactersEndpoint);
-
-            Print.magenta('========================');
-            logger.i(response.data);
-            Print.magenta('========================');
             
+            return response.data as List<dynamic>;
+        } catch (exception) {
+            Print.red('===========================');
+            logger.e(exception.toString());
+            Print.red('===========================');
+
+            return [];
+        }
+    }
+
+    Future<List<dynamic>> getCharacterQuotes(String characterName) async {
+        try {
+            final Response response = await dio.get(
+                'quote', 
+                queryParameters: {
+                    'author': characterName
+                }
+            );
+
             return response.data as List<dynamic>;
         } catch (exception) {
             Print.red('===========================');

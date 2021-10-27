@@ -1,6 +1,12 @@
+import 'dart:io';
+import 'dart:math';
+import 'package:animated_text_kit/animated_text_kit.dart';
+import 'package:breaking_bad_app/business_logic/cubit/characters_cubit.dart';
 import 'package:breaking_bad_app/data/models/character_model.dart';
 import 'package:breaking_bad_app/utils/app_colors.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class CharacterDetailsScreen extends StatelessWidget {
     final CharacterModel character;
@@ -82,8 +88,66 @@ class CharacterDetailsScreen extends StatelessWidget {
         );
     }
 
+    Widget checkIfQuotesAreLoaded({required CharactersState state}) {
+        if (state is CharacterQuotesLoaded) {
+            return displayRandomQuoteOrEmptySpace(state);
+        } else {
+            return showProgressIndicator();
+        }
+    }
+
+    Widget displayRandomQuoteOrEmptySpace(CharacterQuotesLoaded state) {
+        final quotes = state.quotes;
+
+        if (quotes.isNotEmpty) {
+            final int randomQuoteIndex = Random().nextInt(quotes.length - 1);
+
+            return Center(
+                child: DefaultTextStyle(
+                    textAlign: TextAlign.center,
+                    style: const TextStyle(
+                        fontSize: 20,
+                        color: AppColors.appWhite,
+                        shadows: [
+                            Shadow(
+                                blurRadius: 7,
+                                color: AppColors.appYellow,
+                                offset: Offset.zero,
+                            ),
+                        ]
+                    ), 
+                    child: AnimatedTextKit(
+                        repeatForever: true,
+                        animatedTexts:  [
+                            TypewriterAnimatedText(quotes[randomQuoteIndex].quote ?? '-'),
+                        ],
+                    ),
+                )
+            );
+        } else {
+            return Container();
+        }
+    }
+
+    Widget showProgressIndicator() {
+        return Center(
+            child: Platform.isIOS 
+                ? const CupertinoActivityIndicator(
+                    radius: 15,
+                ) 
+                : const CircularProgressIndicator(
+                    color: AppColors.appYellow,
+                ),
+        );
+    }
+
     @override
     Widget build(BuildContext context) {
+        ///
+        /// to listen to the cubit the bloc provider provided us
+        ///
+        BlocProvider.of<CharactersCubit>(context).getCharacterQuotes(character.name!);
+
         return Scaffold(
             backgroundColor: AppColors.appGrey,
             body: CustomScrollView(
@@ -134,6 +198,11 @@ class CharacterDetailsScreen extends StatelessWidget {
                                         buildDivider(value: 235),
                                         const SizedBox(
                                             height: 20,
+                                        ),
+                                        BlocBuilder<CharactersCubit, CharactersState>(
+                                            builder: (context, state) {
+                                                return checkIfQuotesAreLoaded(state: state);
+                                            },
                                         ),
                                     ],
                                 ),

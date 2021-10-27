@@ -13,3 +13,9 @@ class CharactersLoaded extends CharactersState {
 
     CharactersLoaded(this.characters);
 }
+
+class CharacterQuotesLoaded extends CharactersState {
+    final List<CharacterQuotesModel> quotes;
+
+    CharacterQuotesLoaded(this.quotes);
+}
