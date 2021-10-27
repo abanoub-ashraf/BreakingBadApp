@@ -1,7 +1,7 @@
-import 'package:breaking_bad_app/data/models/character_model.dart';
-import 'package:breaking_bad_app/utils/app_assets.dart';
-import 'package:breaking_bad_app/utils/app_colors.dart';
-import 'package:breaking_bad_app/utils/app_routes.dart';
+import '../../data/models/character_model.dart';
+import '../../utils/app_assets.dart';
+import '../../utils/app_colors.dart';
+import '../../utils/app_routes.dart';
 import 'package:flutter/material.dart';
 
 class CharacterItem extends StatelessWidget {

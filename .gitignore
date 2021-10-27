@@ -3,9 +3,6 @@
 # Created by https://www.toptal.com/developers/gitignore/api/xcode,visualstudiocode,swift,macos,kotlin,git,flutter,dart,androidstudio,firebase
 # Edit at https://www.toptal.com/developers/gitignore?templates=xcode,visualstudiocode,swift,macos,kotlin,git,flutter,dart,androidstudio,firebase
 
-### App Exceptions ###
-config.dart
-
 ### Dart ###
 # See https://www.dartlang.org/guides/libraries/private-files
 

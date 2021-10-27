@@ -1,5 +1,5 @@
-import 'package:breaking_bad_app/utils/app_strings.dart';
-import 'package:breaking_bad_app/utils/console_logger.dart';
+import '../../utils/app_strings.dart';
+import '../../utils/console_logger.dart';
 import 'package:print_color/print_color.dart';
 import 'package:dio/dio.dart';
 

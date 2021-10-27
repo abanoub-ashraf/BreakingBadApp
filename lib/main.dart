@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:breaking_bad_app/routes/app_router.dart';
+import 'routes/app_router.dart';
 import 'presentation/widgets/app_widget.dart';
 
 ///

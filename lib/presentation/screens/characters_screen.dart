@@ -1,12 +1,13 @@
-import 'package:breaking_bad_app/utils/app_assets.dart';
+import '../../utils/app_assets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:breaking_bad_app/business_logic/cubit/characters_cubit.dart';
-import 'package:breaking_bad_app/data/models/character_model.dart';
-import 'package:breaking_bad_app/presentation/widgets/character_item.dart';
-import 'package:breaking_bad_app/utils/app_strings.dart';
-import 'package:breaking_bad_app/utils/app_colors.dart';
+import '../../business_logic/cubit/characters_cubit.dart';
+import '../../data/models/character_model.dart';
+import '../widgets/character_item.dart';
+import '../../utils/app_strings.dart';
+import '../../utils/app_colors.dart';
+import 'package:flutter_offline/flutter_offline.dart';
 
 class CharactersScreen extends StatefulWidget {
     const CharactersScreen({ Key? key }) : super(key: key);
@@ -201,6 +202,30 @@ class _CharactersScreenState extends State<CharactersScreen> {
         );
     }
 
+    Widget buildNoInternetWidget() {
+        return Center(
+            child: Container(
+                color: Colors.white,
+                child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                        const Text(
+                            "No Internet Connection\n Please check Your Internet", 
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                                fontSize: 22, 
+                                color: AppColors.appGrey,
+                            ),
+                        ),
+                        Image.asset(
+                            AppAssets.offlineImage,
+                        ),
+                    ],
+                ),
+            ),
+        );
+    }
+
     @override
     Widget build(BuildContext context) {
         return Scaffold(
@@ -217,7 +242,17 @@ class _CharactersScreenState extends State<CharactersScreen> {
                     : _buildAppBarTitle(),
                 actions: _buildAppBarActions(),
             ),
-            body: buildBlocBuilderWidget(),
+            body: OfflineBuilder(
+                connectivityBuilder: (context, connectivity, child) {
+                    final bool connected = connectivity != ConnectivityResult.none;
+                    if (connected) {
+                        return buildBlocBuilderWidget();
+                    } else {
+                        return buildNoInternetWidget();
+                    }
+                },
+                child: showLoadingIndicator(),
+            ),
         );
     }
 }

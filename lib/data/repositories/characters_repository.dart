@@ -1,6 +1,6 @@
-import 'package:breaking_bad_app/data/models/character_model.dart';
-import 'package:breaking_bad_app/data/models/character_quotes_model.dart';
-import 'package:breaking_bad_app/data/web_services/characters_web_services.dart';
+import '../models/character_model.dart';
+import '../models/character_quotes_model.dart';
+import '../web_services/characters_web_services.dart';
 
 ///
 /// - this repository will take the data as json response from the web services

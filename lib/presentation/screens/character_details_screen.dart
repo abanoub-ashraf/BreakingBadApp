@@ -1,12 +1,14 @@
 import 'dart:io';
 import 'dart:math';
 import 'package:animated_text_kit/animated_text_kit.dart';
-import 'package:breaking_bad_app/business_logic/cubit/characters_cubit.dart';
-import 'package:breaking_bad_app/data/models/character_model.dart';
-import 'package:breaking_bad_app/utils/app_colors.dart';
+import '../../business_logic/cubit/characters_cubit.dart';
+import '../../data/models/character_model.dart';
+import '../../utils/app_assets.dart';
+import '../../utils/app_colors.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_offline/flutter_offline.dart';
 
 class CharacterDetailsScreen extends StatelessWidget {
     final CharacterModel character;
@@ -90,10 +92,50 @@ class CharacterDetailsScreen extends StatelessWidget {
 
     Widget checkIfQuotesAreLoaded({required CharactersState state}) {
         if (state is CharacterQuotesLoaded) {
-            return displayRandomQuoteOrEmptySpace(state);
+            return OfflineBuilder(
+                connectivityBuilder: (context, connectivity, child) {
+                    final bool connected = connectivity != ConnectivityResult.none;
+                    if (connected) {
+                        return displayRandomQuoteOrEmptySpace(state);
+                    } else {
+                        return buildNoInternetWidget();
+                    }
+                },
+                child: showLoadingIndicator()
+            );
         } else {
             return showProgressIndicator();
         }
+    }
+
+    Widget showLoadingIndicator() {
+        return Center(
+            child: Image.asset(AppAssets.loadingImage),
+        );
+    }
+
+    Widget buildNoInternetWidget() {
+        return Center(
+            child: Container(
+                color: AppColors.appGrey,
+                child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: const [
+                        SizedBox(
+                            height: 10,
+                        ),
+                        Text(
+                            "No Internet Connection\n Please check Your Internet", 
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                                fontSize: 18, 
+                                color: AppColors.appWhite,
+                            ),
+                        ),
+                    ],
+                ),
+            ),
+        );
     }
 
     Widget displayRandomQuoteOrEmptySpace(CharacterQuotesLoaded state) {

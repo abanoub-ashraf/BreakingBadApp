@@ -1,4 +1,4 @@
-import 'package:breaking_bad_app/routes/app_router.dart';
+import '../../routes/app_router.dart';
 import 'package:flutter/material.dart';
 
 class AppWidget extends StatelessWidget {

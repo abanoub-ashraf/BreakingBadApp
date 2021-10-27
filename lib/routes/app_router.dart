@@ -1,12 +1,12 @@
-import 'package:breaking_bad_app/data/models/character_model.dart';
+import '../data/models/character_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:breaking_bad_app/business_logic/cubit/characters_cubit.dart';
-import 'package:breaking_bad_app/data/repositories/characters_repository.dart';
-import 'package:breaking_bad_app/data/web_services/characters_web_services.dart';
-import 'package:breaking_bad_app/presentation/screens/character_details_screen.dart';
-import 'package:breaking_bad_app/presentation/screens/characters_screen.dart';
-import 'package:breaking_bad_app/utils/app_routes.dart';
+import '../business_logic/cubit/characters_cubit.dart';
+import '../data/repositories/characters_repository.dart';
+import '../data/web_services/characters_web_services.dart';
+import '../presentation/screens/character_details_screen.dart';
+import '../presentation/screens/characters_screen.dart';
+import '../utils/app_routes.dart';
 
 ///
 /// this class will handle the routing in the app
