@@ -19,3 +19,4 @@ analyzer:
     directives_ordering: ignore
     slash_for_doc_comments: ignore
     sort_child_properties_last: ignore
+    prefer_if_elements_to_conditional_expressions: ignore

@@ -1,3 +1,4 @@
+import 'package:breaking_bad_app/data/models/character_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:breaking_bad_app/business_logic/cubit/characters_cubit.dart';
@@ -37,7 +38,15 @@ class AppRouter {
                     ),
                 );
             case AppRoutes.characterDetailsScreen:
-                return MaterialPageRoute(builder: (_) => const CharacterDetailsScreen());
+                ///
+                /// the character item widget will give this character as an argument 
+                /// to the character details screen
+                ///
+                final character = settings.arguments! as CharacterModel;
+                
+                return MaterialPageRoute(
+                    builder: (_) => CharacterDetailsScreen(character: character)
+                );
         }
     }
 }
